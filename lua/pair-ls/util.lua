@@ -7,10 +7,10 @@ M.make_position_param = function(bufnr, lnum, col, offset_encoding)
     return { line = 0, character = 0 }
   end
 
-  local ok, ret_col = pcall(vim.lsp.util._str_utfindex_enc, line, col, offset_encoding)
+  local ok, ret_col = pcall(vim.str_utfindex, line, col, offset_encoding)
   -- The end range can be off the line
   if not ok then
-    ret_col = vim.lsp.util._str_utfindex_enc(line, col - 1, offset_encoding)
+    ret_col = vim.str_utfindex(line, col - 1, offset_encoding)
   end
   return { line = row, character = ret_col }
 end
